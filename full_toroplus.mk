@@ -21,9 +21,6 @@
 # lines, full and maguro, hence its name.
 #
 
-# Get the long list of APNs
-# PRODUCT_COPY_FILES += device/samsung/toroplus/test-apns-conf_sprint.xml:system/etc/apns-conf.xml
-
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 # This is where we'd set a backup provider if we had one
@@ -31,9 +28,22 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 # Inherit from toroplus device
 $(call inherit-product, device/samsung/toroplus/device.mk)
 
+# Get the long list of APNs
+$(call inherit-product, vendor/cna/configs/apns.mk)
+
+# Release name
+PRODUCT_RELEASE_NAME := GN-SPR
+
 # Set those variables here to overwrite the inherited values.
 PRODUCT_NAME := full_toroplus
 PRODUCT_DEVICE := toroplus
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := AOSP on Toroplus
-PRODUCT_RESTRICT_VENDOR_FILES := true
+PRODUCT_BRAND := google
+PRODUCT_MODEL := Galaxy Nexus
+PRODUCT_RESTRICT_VENDOR_FILES := false
+
+#Set build fingerprint / ID / Product Name ect.
+PRODUCT_BUILD_PROP_OVERRIDES += \
+     PRODUCT_NAME=mysidspr \
+     BUILD_FINGERPRINT="samsung/mysidspr/toroplus:4.3/JWR67B/L700GJ04:user/release-keys" \
+     PRIVATE_BUILD_DESC="mysidspr-user 4.3 JWR67B L700GJ04 release-keys"
+
